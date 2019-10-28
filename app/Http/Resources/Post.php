@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Support\Carbon;
+
 class Post extends BaseResource
 {
     public function toArray($request)
@@ -9,7 +11,7 @@ class Post extends BaseResource
         return [
             'title' => $this->title,
             'content' => $this->content,
-            'publish_date' => $this->publish_date,
+            'publish_date' => Carbon::createFromTimeString($this->publish_date)->format('Y-m-d'),
         ];
     }
 }
