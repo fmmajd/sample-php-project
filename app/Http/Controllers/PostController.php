@@ -6,10 +6,11 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
+use App\Http\Resources\Post as PostResource;
 
 class PostController extends Controller
 {
-    public function store(Request $request): Response
+    public function store(Request $request)
     {
         $rules = [
             'title' => 'required|string|min:3|unique:posts',
@@ -23,8 +24,6 @@ class PostController extends Controller
         $post->fill($request->only(['title', 'content', 'publish_date']));
         $post->save();
 
-        return $this->jsonResponse(
-            $post->only(['title', 'content', 'publish_date'])
-        );
+        return new PostResource($post);
     }
 }
