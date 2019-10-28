@@ -2,11 +2,15 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\responseHelpers;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
+    use responseHelpers;
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -46,6 +50,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof ValidationException) {
+            return $this->jsonResponse(
+                [$exception->validator->errors()->first()],
+                $exception->validator->errors()->first(),
+                400
+            );
+        }
         return parent::render($request, $exception);
     }
 }
