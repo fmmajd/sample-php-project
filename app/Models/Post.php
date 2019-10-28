@@ -25,4 +25,6 @@ namespace App\Models;
 class Post extends BaseModel
 {
     protected $table = 'posts';
+
+    protected $fillable = ['title', 'content', 'publish_date'];
 }
