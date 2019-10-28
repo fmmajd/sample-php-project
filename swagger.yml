@@ -1,0 +1,47 @@
+openapi: 3.0.0
+
+info:
+  description: Thorogh documentation of Laravel apis
+  version: "1.0.0"
+  title: Laravel API
+
+paths:
+  /api/sample:
+    get:
+      description: |
+        sample api
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: a message specificlly for developers and not meant to be shown to end suers
+                    nullable: true
+                    example: action was done with tracking number $1111
+                  user_message:
+                    type: string
+                    description: a message to display for end users
+                    nullable: false
+                    example: action was done successfully
+                  success:
+                    type: boolean
+                    description: whether the action was done successfully or there were errors
+                    nullable: false
+                  code:
+                    type: integer
+                    description: a specific code
+                    nullable: false
+                  payload:
+                    description: contains the actual data returned from the request
+                    nullable: true
+                required:
+                  - message
+                  - user_message
+                  - success
+                  - payload
+
